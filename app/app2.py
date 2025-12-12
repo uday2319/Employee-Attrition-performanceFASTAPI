@@ -1,20 +1,12 @@
 from fastapi import FastAPI
 import joblib
-import numpy as np
+import pandas as pd
 
 app = FastAPI()
-pipeline = joblib.load("employee_attrition.pkl")  
-columns = joblib.load("columns.pkl")
 
-def process_input(data):
-    x = np.zeros(len(columns))
-    for i, col in enumerate(columns):
-        val = data.get(col, 0)
-        try:
-            x[i] = float(val)
-        except:
-            x[i] = 0
-    return x.reshape(1, -1)
+
+pipeline = joblib.load("employee_attrition.pkl")
+columns = joblib.load("columns.pkl")
 
 @app.get("/")
 def home():
@@ -22,10 +14,10 @@ def home():
 
 @app.post("/predict")
 def predict(data: dict):
-    x = process_input(data)
-    pred = int(pipeline.predict(x)[0])
 
-
+    
+    df = pd.DataFrame([data], columns=columns)
+    pred = int(pipeline.predict(df)[0])
     result = "Yes" if pred == 1 else "No"
 
     return {"Attrition": result}
