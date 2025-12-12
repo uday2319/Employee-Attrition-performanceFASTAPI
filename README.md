@@ -1,6 +1,6 @@
 Employee Attrition Project — FastAPI (Deployed on Render)
 
-Live: Deployed on Render — https://your-app-name.onrender.com (replace with your actual Render URL)
+Live: Deployed on Render — https://employee-attrition-performancefastapi-1.onrender.com
 
 A small FastAPI service for the Employee Attrition demo, deployed to Render. 
 
